@@ -1,0 +1,29 @@
+<h1>{{ data.header }}</h1>
+<form id="user-pass" action="/account/pass/" method="post">
+    {% if data.errors %}
+        <div>
+            {% for error in data.errors %}
+                {{ error | raw }}<br>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>{{ data.message | raw }}</div>
+    {% endif %}
+
+    <div>
+        <label for="user-pass-new">Новый пароль</label>
+        <br>
+        <input id="user-pass-new" name="user-pass-new" type="password" value="" placeholder="Новый пароль">
+    </div>
+    <div>
+        <label for="user-pass-confirm">Новый пароль еще раз</label>
+        <br>
+        <input id="user-pass-confirm" name="user-pass-confirm" type="password" value="" placeholder="Новый пароль еще разз">
+    </div>
+
+    <input type="hidden" name="user-pass-id" value="{{ data.id }}">
+
+    <br>
+
+    <button type="submit" name="user-pass-submit">Изменить</button>
+</form>

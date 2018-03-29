@@ -1,0 +1,32 @@
+<h1>{{ data.header }}</h1>
+<form id="auth" action="{{ data.form_action }}" method="post">
+
+    {% if data.errors %}
+        <div>
+            {% for error in data.errors %}
+                {{ error }}<br>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>{{ data.message }}</div>
+    {% endif %}
+
+    <div>
+        <label for="auth-login">Логин</label>
+        <br>
+        <input id="auth-login" name="auth-login" type="text" value="{{ data.login }}" placeholder="Логин">
+    </div>
+    <div>
+        <label for="auth-password">Пароль</label>
+        <br>
+        <input id="auth-password" name="auth-password" type="password" value="" placeholder="Пароль">
+    </div>
+    <div>
+        <input id="auth-remember" name="auth-remember" type="checkbox">
+        <label for="auth-remember">Запомнить меня</label>
+    </div>
+    <br>
+    <button name="auth-submit" type="submit">Войти</button>
+</form>
+<br>
+<a href="{{ data.page_registration }}">Регистрация</a>

@@ -1,0 +1,54 @@
+<h1>{{ data.header }}</h1>
+{% if data.goods %}
+    {% for item in data.goods %}
+
+        <h2>{{ item.name }} - {{ item.id }}</h2>
+        <p>
+            <a href="{{ item.page_detail }}">Подробнее</a>
+        </p>
+        <a href="{{ item.page_detail }}">
+            <img src="{{ item.image_preview }}" alt="{{ item.name }}">
+        </a>
+
+        {% if ( item.discount > 0 ) %}
+
+            <p>
+                Цена: {{ item.price }} руб.<br>
+                Старая цена: {{ item.price_old }} руб.<br>
+                Скидка: {{ item.discount }}%<br>
+                Экономия: {{ item.discount_size }} руб.
+            </p>
+
+        {% else %}
+
+            <p>
+                Цена: {{ item.price }} руб.
+            </p>
+
+        {% endif %}
+
+        <p>
+            Рейтинг: {{ item.rating }}
+        </p>
+        <p>
+            Бренд: {{ item.brand }}
+        </p>
+        <p>
+            {{ item.text_preview }}
+        </p>
+
+        {% if item.sizes %}
+            <p>
+                Размеры: {{ item.sizes | join( ', ' ) }}
+            </p>
+        {% endif %}
+
+        <form action="/basket/add/" method="post">
+            <input type="hidden" name="goods_id" value="{{ item.id }}">
+            <button type="submit" name="submit">Купить</button>
+        </form>
+
+    {% endfor %}
+{% else %}
+    Каталог пока не содержит товаров
+{% endif %}

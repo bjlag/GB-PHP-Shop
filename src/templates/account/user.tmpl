@@ -1,0 +1,37 @@
+<h1>{{ data.header }}</h1>
+<form id="user-data" action="/account/user/" method="post">
+    {% if data.errors %}
+        <div>
+            {% for error in data.errors %}
+                {{ error | raw }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div>
+        <label for="user-data-login">Логин</label>
+        <br>
+        <input id="user-data-login" name="user-data-login" type="text" value="{{ data.login }}" placeholder="Логин" disabled>
+    </div>
+    <div>
+        <label for="user-data-name">Ваше имя</label>
+        <br>
+        <input id="user-data-name" name="user-data-name" type="text" value="{{ data.name }}" placeholder="Ваше имя">
+    </div>
+    <div>
+        <label for="user-data-email">Email</label>
+        <br>
+        <input id="user-data-email" name="user-data-email" type="text" value="{{ data.email }}" placeholder="Email">
+    </div>
+    <div>
+        <label for="user-data-phone">Телефон</label>
+        <br>
+        <input id="user-data-phone" name="user-data-phone" type="text" value="{{ data.phone }}" placeholder="Телефон">
+    </div>
+
+    <input type="hidden" name="user-data-id" value="{{ data.id }}">
+
+    <br>
+
+    <button type="submit" name="user-data-submit">Изменить</button>
+</form>

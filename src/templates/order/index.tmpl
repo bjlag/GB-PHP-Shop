@@ -1,0 +1,94 @@
+<h1> {{ data.header }} </h1>
+
+{% if data.error %}
+    {% for error in data.error %}
+        {{ error | raw }}<br>
+    {% endfor %}
+{% endif %}
+
+<form id="order" action="/order/" method="post">
+    <h2>Доставка</h2>
+    <label for="order-city">Город</label>
+    <br>
+    <input id="order-city" type="text" name="order-city" placeholder="Город" value="{{ data.form.order_city }}">
+    <br><br>
+    <label for="order-method-delivery">Способ доставки</label>
+    <br>
+    <select id="order-method-delivery" name="order-method-delivery">
+        <option selected disabled>Выберите способ доставки</option>
+        {% for key, item in data.method_delivery %}
+            {% if data.form.order_method_delivery == key %}
+                <option value="{{ key }}" selected>{{ item[ 'name' ] }}</option>
+            {% else %}
+                <option value="{{ key }}">{{ item[ 'name' ] }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <br><br>
+    <label for="order-address-delivery">Адрес доставки</label>
+    <br>
+    <input id="order-address-delivery" type="text" name="order-address-delivery" placeholder="Адрес доставки" value="{{ data.form.order_address_delivery }}">
+
+    <h2>Оплата</h2>
+    <label for="order-method-payment">Способ оплаты</label>
+    <br>
+    <select id="order-method-payment" name="order-method-payment">
+        <option selected disabled>Выберите способ оплаты</option>
+        {% for key, item in data.method_payment %}
+            {% if data.form.order_method_payment == key %}
+                <option value="{{ key }}" selected>{{ item }}</option>
+            {% else %}
+                <option value="{{ key }}">{{ item }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+    <h2>Покупатель</h2>
+    <label for="order-user-name">Ваше имя</label>
+    <br>
+    <input id="order-user-name" type="text" name="order-user-name" placeholder="Ваше имя" value="{{ data.form.order_user_name }}">
+    <br><br>
+    <label for="order-user-email">Email</label>
+    <br>
+    <input id="order-user-email" type="text" name="order-user-email" placeholder="Email" value="{{ data.form.order_user_email }}">
+    <br><br>
+    <label for="order-user-phone">Телефон</label>
+    <br>
+    <input id="order-user-phone" type="text" name="order-user-phone" placeholder="Телефон" value="{{ data.form.order_user_phone }}">
+    <br><br>
+    <label for="order-user-comment">Комментарий к заказу</label>
+    <br>
+    <textarea id="order-user-comment" name="order-user-comment" cols="30" rows="10"
+              placeholder="Например, удобное время доставки">{{ data.form.order_user_comment }}</textarea>
+    <h2>Товары в заказе</h2>
+
+    {% if ( data.goods.items ) %}
+
+        {% for item in data.goods.items %}
+
+            <p>
+                <a href="/catalog/{{ item.id }}/">{{ item.name }}</a>
+                <br>
+                {{ item.price }} руб. x {{ item.count }} = {{ item.price * item.count }} руб.<br>
+
+                {% if ( item.discount > 0 ) %}
+                    Скидка {{ item.discount }}% ({{ item.discount_size }} руб.)
+                {% endif %}
+            </p>
+
+        {% endfor %}
+
+        <p>
+            <b>Итого</b><br>
+            Количество товаров: {{ data.goods.total_count }} шт.<br>
+            Стоимость заказ: {{ data.goods.total_amount }} руб.<br>
+            Размер скидки: {{ data.goods.total_discount }} руб.
+        </p>
+
+    {% else %}
+        В корзине нет ни одного товара!
+    {% endif %}
+
+    <br><br>
+    <button type="submit" name="order-submit">Оформить заказ</button>
+</form>

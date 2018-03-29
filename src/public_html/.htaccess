@@ -1,0 +1,21 @@
+DirectoryIndex index.php index.html
+
+#php_value default_charset utf-8
+#php_value display_errors 0
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteBase /
+
+    # запрещаем доступ к файлу .htaccess в случае дырявого хостинга
+    RewriteRule .htaccess - [F]
+
+    RewriteCond %{REQUEST_FILENAME} -f [NC,OR]
+    RewriteCond %{REQUEST_FILENAME} -d [NC]
+    RewriteRule .* - [L]
+
+    RewriteCond %{REQUEST_URI} [^/]$
+    RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+    RewriteRule ^(.*)/$ index.php?path=$1 [QSA,L]
+</IfModule>

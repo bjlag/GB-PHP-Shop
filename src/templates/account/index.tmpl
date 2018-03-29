@@ -1,0 +1,27 @@
+<h1>{{ data.header }}</h1>
+<h2>Данные пользователя</h2>
+<p>
+    Логин: {{ data.user.login }}<br>
+    Имя: {{ data.user.name }}<br>
+    Email: {{ data.user.email }}<br>
+    Телефон: {{ data.user.phone }}
+</p>
+<p>
+    <a href="/account/user/">Изменить личные данные</a><br>
+    <a href="/account/pass/">Изменить пароль</a>
+</p>
+<h2>История заказов</h2>
+{% if data.orders %}
+    {% for order in data.orders %}
+
+        <p>
+            <a href="/account/order/{{ order.id }}/">Заказ №{{ order.id }}</a><br>
+            Дата заказа: {{ order.date_create }} <br>
+            Количество товаров: {{ order.count }} <br>
+            Сумма заказа: {{ order.sum }}
+        </p>
+
+    {% endfor %}
+{% else %}
+    <p>Вы пока не сделали ни одного заказа</p>
+{% endif %}

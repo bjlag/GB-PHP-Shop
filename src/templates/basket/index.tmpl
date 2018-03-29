@@ -1,0 +1,45 @@
+<h1>{{ data.header }}</h1>
+{% if data.basket.items %}
+    {% for item in data.basket.items %}
+
+        <p>
+            <a href="/catalog/{{ item.id }}/">{{ item.name }}</a>
+            <br>
+            {{ item.price }} руб. x {{ item.count }} = {{ item.price * item.count }} руб.<br>
+
+            {% if ( item.discount > 0 ) %}
+                Скидка {{ item.discount }}% ({{ item.discount_size }} руб.)
+            {% endif %}
+        </p>
+        <form action="/basket/remove/" method="post">
+            <input type="hidden" name="goods_id" value="{{ item.id }}">
+            <button type="submit">Удалить</button>
+        </form>
+        <form action="/basket/change/" method="post">
+            <input type="hidden" name="goods_id" value="{{ item.id }}">
+            <input type="hidden" name="new_count" value="{{ item.count - 1 }}">
+            <button type="submit">-</button>
+        </form>
+        <form action="/basket/change/" method="post">
+            <input type="hidden" name="goods_id" value="{{ item.id }}">
+            <input type="hidden" name="new_count" value="{{ item.count + 1 }}">
+            <button type="submit">+</button>
+        </form>
+
+    {% endfor %}
+
+    <p>
+        <b>Итого</b><br>
+        Количество товаров: {{ data.basket.total_count }} шт.<br>
+        Стоимость заказ: {{ data.basket.total_amount }} руб.<br>
+        Размер скидки: {{ data.basket.total_discount }} руб.
+    </p>
+
+    <p>
+        <a href="/basket/clean/">Очистить корзину</a> &nbsp;
+        <a href="/order/">Оформить заказ</a>
+    </p>
+
+{% else %}
+    В корзине пока нет товаров
+{% endif %}

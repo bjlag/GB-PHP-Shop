@@ -1,0 +1,36 @@
+<h1>{{ data.header }}</h1>
+<form id="reg" action="{{ data.form_action }}" method="post">
+
+    {% if data.errors %}
+        <div>
+            {% for error in data.errors %}
+                {{ error | raw }}<br>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>{{ data.message | raw }}</div>
+    {% endif %}
+
+    <div>
+        <label for="reg-login">Логин</label>
+        <br>
+        <input id="reg-login" name="reg-login" type="text" value="{{ data.login }}" placeholder="Логин">
+    </div>
+    <div>
+        <label for="reg-password">Пароль</label>
+        <br>
+        <input id="reg-password" name="reg-password" type="password" value="" placeholder="Пароль">
+    </div>
+    <div>
+        <label for="reg-password-confirm">Пароль еще раз</label>
+        <br>
+        <input id="reg-password-confirm" name="reg-password-confirm" type="password" value="" placeholder="Пароль еще раз">
+    </div>
+    <div>
+        <label for="reg-name">Ваше имя</label>
+        <br>
+        <input id="reg-name" name="reg-name" type="text" value="{{ data.name }}" placeholder="Ваше имя">
+    </div>
+    <br>
+    <button name="reg-submit" type="submit">Зарегистрироваться</button>
+</form>

@@ -1,0 +1,23 @@
+{
+    "name": "vlad/shop",
+    "authors": [
+        {
+            "name": "bjlag",
+            "email": "vlad.duplin@ya.ru"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Engine\\": "src/engine/",
+            "AppExceptions\\": "src/engine/exceptions/",
+            "Controller\\": "src/controller/",
+            "Model\\": "src/model/"
+        }
+    }
+}

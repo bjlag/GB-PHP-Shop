@@ -1,0 +1,38 @@
+{% if data.user.id %}
+    <p>Здравствуйте, {{ data.user.name }}!</p>
+{% endif %}
+
+<b>Меню</b>
+<ul>
+    <li>
+        <a href="/">Главная</a>
+    </li>
+    <li>
+        <a href="/catalog/">Каталог</a>
+    </li>
+    <li>
+        <a href="/account/">Личный кабинет</a>
+    </li>
+
+    {% if data.user.id %}
+
+        <li>
+            <a href="/user/logout/">Выход</a>
+        </li>
+
+    {% endif %}
+</ul>
+
+<b>Корзина</b>
+<p>
+    {% if data.basket.total_count > 0 %}
+
+        {{ data.basket.total_count }} шт. - {{ data.basket.total_amount }} руб.
+        <br>
+        <a href="/basket/">В корзину</a>
+
+    {% else %}
+        Пока пусто
+    {% endif %}
+</p>
+<hr>

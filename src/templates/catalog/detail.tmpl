@@ -1,0 +1,52 @@
+<h1>{{ data.header }}</h1>
+{% if data.goods %}
+
+    <a href="{{ data.goods.image_full }}" target="_blank">
+        <img src="{{ data.goods.image_preview }}" alt="{{ data.goods.name }}">
+    </a>
+
+    {% if ( data.goods.discount > 0 ) %}
+
+        <p>
+            Цена: {{ data.goods.price }} руб.<br>
+            Старая цена: {{ data.goods.price_old }} руб.<br>
+            Скидка: {{ data.goods.discount }}%<br>
+            Экономия: {{ data.goods.discount_size }} руб.
+        </p>
+
+    {% else %}
+
+        <p>
+            Цена: {{ data.goods.price }} руб.
+        </p>
+
+    {% endif %}
+
+    <p>
+        Рейтинг: {{ data.goods.rating }}
+    </p>
+    <p>
+        Бренд: {{ data.goods.brand }}
+    </p>
+    <p>
+        {{ data.goods.text_full }}
+    </p>
+
+    {% if data.goods.sizes %}
+        <p>
+            Размеры: {{ data.goods.sizes | join( ', ' ) }}
+        </p>
+    {% endif %}
+
+    <form action="/basket/add/" method="post">
+        <input type="hidden" name="goods_id" value="{{ data.goods.id }}">
+        <button type="submit" name="submit">Купить</button>
+    </form>
+
+    <p>
+        <a href="/catalog/">Назад</a>
+    </p>
+
+{% else %}
+    Товар не найден
+{% endif %}

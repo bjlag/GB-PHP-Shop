@@ -1,0 +1,61 @@
+<h1>{{ data.header }}</h1>
+
+{% if data.customer %}
+    <h2>Покупатель</h2>
+    <p>
+        Имя: {{ data.customer.name }}<br>
+        Email: {{ data.customer.email }}<br>
+        Телефон: {{ data.customer.phone }}<br>
+    </p>
+{% endif %}
+
+{% if data.delivery %}
+    <h2>Доставка</h2>
+    <p>
+        Способ: {{ data.delivery.method }}<br>
+        Адрес: {{ data.delivery.address }}<br>
+        Стоимость доставки: {{ data.delivery.cost }} руб.<br>
+    </p>
+{% endif %}
+
+{% if data.payment %}
+    <h2>Оплата</h2>
+    <p>
+        Способ: {{ data.payment.method }}
+    </p>
+{% endif %}
+
+{% if data.goods %}
+    <h2>Товары</h2>
+    {% for goods in data.goods %}
+
+        <p>
+            <a href="/catalog/{{ goods.goods_id }}/">{{ goods.goods_name }}</a><br>
+            Количество: {{ goods.count }}<br>
+            Цена: {{ goods.price }} руб.<br>
+
+            {% if goods.discount > 0 %}
+                Скидка: {{ goods.discount }} руб.<br>
+            {% endif %}
+
+
+            Сумма: {{ goods.sum }} руб.<br>
+        </p>
+
+    {% endfor %}
+
+    <p>
+        <b>Итого</b><br>
+        Количество: {{ data.total_count }}<br>
+        Сумма: {{ data.total_sum }} руб.<br>
+        Доставка: {{ data.delivery.cost }} руб.<br><br>
+        Стоимость заказа: {{ data.total_sum + data.delivery.cost }} руб.
+    </p>
+{% endif %}
+
+{% if data.comment %}
+    <h2>Комментарий</h2>
+    <p>
+        {{ data.comment }}
+    </p>
+{% endif %}
